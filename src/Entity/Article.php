@@ -9,13 +9,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  */
 class Article
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -26,7 +26,7 @@ class Article
     private $picture;
 
     /**
-     * @Assert\NotBlank(message="Le titre ne peut pas être vide.")
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $title;
