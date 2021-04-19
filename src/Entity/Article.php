@@ -3,15 +3,19 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
 class Article
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -22,6 +26,7 @@ class Article
     private $picture;
 
     /**
+     * @Assert\NotBlank(message="Le titre ne peut pas être vide.")
      * @ORM\Column(type="string", length=255)
      */
     private $title;
@@ -32,19 +37,41 @@ class Article
     private $content;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $publicationDate;
-
-    /**
      * @ORM\Column(type="datetime")
      */
-    private $lastUpdateDate;
+    private $createdAt;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $publishedAt;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
      */
     private $isPublished;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="articles")
+     */
+    private $categories;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $slug;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+        $this->createdAt = new \DateTime;
+        $this->isPublished = false;
+    }
 
     public function getId(): ?int
     {
@@ -87,26 +114,38 @@ class Article
         return $this;
     }
 
-    public function getPublicationDate(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->publicationDate;
+        return $this->createdAt;
     }
 
-    public function setPublicationDate(?\DateTimeInterface $publicationDate): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->publicationDate = $publicationDate;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getLastUpdateDate(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->lastUpdateDate;
+        return $this->updatedAt;
     }
 
-    public function setLastUpdateDate(\DateTimeInterface $lastUpdateDate): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->lastUpdateDate = $lastUpdateDate;
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getPublishedAt(): ?\DateTimeInterface
+    {
+        return $this->publishedAt;
+    }
+
+    public function setPublishedAt(?\DateTimeInterface $publishedAt): self
+    {
+        $this->publishedAt = $publishedAt;
 
         return $this;
     }
@@ -119,6 +158,42 @@ class Article
     public function setIsPublished(bool $isPublished): self
     {
         $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
