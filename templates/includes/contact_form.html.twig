@@ -1,69 +1,12 @@
-{# templates/blog/index.html.twig #}
-{% extends "base.html.twig" %}
-
-{% block title %}Accueil | {{ parent() }}{% endblock %}
-
-{% block content %}
-	<div class="container">
-		<div class="row">
-			<div class="col s12 m7 l9">
-				<div class="article-card image-card" style="background: url('https://images.pexels.com/photos/276402/pexels-photo-276402.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');">
-					<h2><a href="">Titre Article</a></h2>
-					<span class="date">01/03/2021</span>
-				</div>
-			</div>
-			<div class="col s12 m5 l3">
-				<div class="row">
-					<div class="col s12 m12 l12">
-						<div class="article-card image-card" style="background: url('https://images.pexels.com/photos/276432/pexels-photo-276432.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' );">
-							<h2><a href="">Titre Article</a></h2>
-							<span class="date">01/03/2021</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="container">
-		<div class="row">
-			<div class="col s12 m4 l3">
-				<div class="article-card">
-					<img src="https://images.pexels.com/photos/276410/pexels-photo-276410.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="responsive-img">
-					<h2><a href="">Titre Article</a></h2>
-					<span class="date">01/03/2021</span>
-				</div>
-			</div>
-			<div class="col s12 m4 l3">
-				<div class="article-card">
-					<img src="https://images.pexels.com/photos/276411/pexels-photo-276411.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="responsive-img">
-					<h2><a href="">Titre Article</a></h2>
-					<span class="date">01/03/2021</span>
-				</div>
-			</div>
-			<div class="col s12 m4 l3">
-				<div class="article-card">
-					<img src="https://images.pexels.com/photos/276422/pexels-photo-276422.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="responsive-img">
-					<h2><a href="">Titre Article</a></h2>
-					<span class="date">01/03/2021</span>
-				</div>
-			</div>
-			<div class="col s12 m4 l3">
-				<div class="article-card">
-					<img src="https://images.pexels.com/photos/276402/pexels-photo-276402.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class="responsive-img">
-					<h2><a href="">Titre Article</a></h2>
-					<span class="date">01/03/2021</span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="section" id="contact">
+{{ form_start(form) }}
+    <div class="section" id="contact">
     <div class="cc-contact-information" style="background-image: url('images/fond.jpg');">
         <div class="container">
         <div class="cc-contact">
             <div class="row">
             <div class="col-md-9">
                 <div class="card mb-0" data-aos="zoom-in">
+                <div class="h4 text-center title">Me contacter</div>
                 <div class="row">
                     <div class="col-md-6">
                     <div class="card-body">
@@ -105,6 +48,16 @@
                         </form>
                     </div>
                     </div>
+                    <div class="col-md-6">
+                    <div class="card-body">
+                        <p class="mb-0"><strong>Adresse </strong></p>
+                        <p class="pb-2">1600 route des milles</p>
+                        <p class="mb-0"><strong>Numéro</strong></p>
+                        <p class="pb-2">07 60 17 98 99</p>
+                        <p class="mb-0"><strong>Mail</strong></p>
+                        <p>thomas.leydet@ynov.com</p>
+                    </div>
+                    </div>
                 </div>
                 </div>
             </div>
@@ -113,4 +66,6 @@
         </div>
     </div>
     </div>
-{% endblock %}
+{{ form_end(form) }}
+
+
